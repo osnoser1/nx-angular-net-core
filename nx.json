@@ -4,6 +4,7 @@
     "defaultBase": "master"
   },
   "implicitDependencies": {
+    "workspace.json": "*",
     "package.json": {
       "dependencies": "*",
       "devDependencies": "*"
@@ -26,13 +27,6 @@
       }
     ]
   },
-  "projects": {
-    "angular-app": {
-      "tags": []
-    },
-    "angular-app-e2e": {
-      "tags": [],
-      "implicitDependencies": ["angular-app"]
-    }
-  }
+  "projects": {},
+  "plugins": ["@nx-dotnet/core"]
 }
