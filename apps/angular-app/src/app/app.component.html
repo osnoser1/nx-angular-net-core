@@ -34,7 +34,15 @@
   <h1>Welcome to {{ title }}!</h1>
 </header>
 <main>
-  <h2>Resources &amp; Tools</h2>
+  <h2>Weather Forecast</h2>
+  <ul>
+    <li *ngFor="let item of weatherForecast$ | async">
+      <p>Date: {{ item.date | date:'long' }}</p>
+      <p>Temperature C: {{ item.temperatureC }}°</p>
+      <p>Temperature F: {{ item.temperatureF }}°</p>
+      <p>Summary: {{ item.summary }}</p>
+    </li>
+  </ul>
   <p>Thank you for using and showing some ♥ for Nx.</p>
   <div class="flex github-star-container">
     <a
