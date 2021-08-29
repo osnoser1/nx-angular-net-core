@@ -8,7 +8,7 @@
       "builder": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/angular-app",
+        "outputPath": "apps/angular-app/dist/angular-app",
         "index": "apps/angular-app/src/index.html",
         "main": "apps/angular-app/src/main.ts",
         "polyfills": "apps/angular-app/src/polyfills.ts",
@@ -65,6 +65,23 @@
         }
       },
       "defaultConfiguration": "development"
+    },
+    "docker": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "docker build ./apps/angular-app -t angular-app"
+      }
+    },
+    "deploy": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "docker tag angular-app {args.registry}/angular-app",
+          "docker tag angular-app {args.registry}/angular-app:{args.tag}",
+          "docker push -a {args.registry}/angular-app"
+        ],
+        "parallel": false
+      }
     },
     "extract-i18n": {
       "builder": "@angular-devkit/build-angular:extract-i18n",

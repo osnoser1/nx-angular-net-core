@@ -7,7 +7,7 @@
       "executor": "@nx-dotnet/core:publish",
       "outputs": ["{options.output}"],
       "options": {
-        "output": "dist/apps/netcore-api",
+        "output": "dist/netcore-api",
         "configuration": "Debug"
       },
       "configurations": {
@@ -26,6 +26,23 @@
         "production": {
           "configuration": "Release"
         }
+      }
+    },
+    "docker": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "docker build ./apps/netcore-api -t netcore-api"
+      }
+    },
+    "deploy": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "docker tag netcore-api {args.registry}/netcore-api",
+          "docker tag netcore-api {args.registry}/netcore-api:{args.tag}",
+          "docker push -a {args.registry}/netcore-api"
+        ],
+        "parallel": false
       }
     },
     "lint": {
